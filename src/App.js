@@ -12,7 +12,6 @@ const timelineData = [
       { name: "Archive System", detail: "Past season materials organized and handed off. Institutional memory preserved." },
       { name: "Alumni Contact Collection", detail: "Early outreach begins. Building the database before fall recruitment." },
     ],
-    accent: "#d4a853"
   },
   {
     period: "JULY — AUGUST",
@@ -24,7 +23,6 @@ const timelineData = [
       { name: "Communication Structure", detail: "Department heads briefed on information flow. No more announcement gaps." },
       { name: "Cross-Department Alignment", detail: "Soft sync between Models, Photography, Creative, Styling, and Marketing before the semester begins." },
     ],
-    accent: "#d4a853"
   },
   {
     period: "SEPTEMBER",
@@ -36,7 +34,6 @@ const timelineData = [
       { name: "Engagement Documentation", detail: "Attendance, participation, and prospect pipeline tracked in real time." },
       { name: "Communication Clarity", detail: "Every department knows what's happening, when, and why. No information silos." },
     ],
-    accent: "#d4a853"
   },
   {
     period: "OCTOBER",
@@ -48,7 +45,6 @@ const timelineData = [
       { name: "Internal Transparency Layer", detail: "Members can see how opportunities are allocated. Leadership can identify gaps." },
       { name: "Participation Audit", detail: "Cross-department event attendance reviewed. Data informs November decisions." },
     ],
-    accent: "#d4a853"
   },
   {
     period: "NOVEMBER",
@@ -60,7 +56,6 @@ const timelineData = [
       { name: "MOTM Family Field Day ↓", detail: "NEW initiative introduced immediately after the Halfway Show. Alumni, current members, and the new class come together for the first time. Breaks generational divisions. Builds real faMM culture.", highlight: true },
       { name: "Alumni Network Activation", detail: "Alumni formally welcomed back into the ecosystem. LinkedIn directory launched. Spring panel planning begins." },
     ],
-    accent: "#d4a853"
   },
   {
     period: "DECEMBER",
@@ -72,7 +67,6 @@ const timelineData = [
       { name: "Industry Panel Planning", detail: "Spring alumni panel fully planned. Speakers confirmed. Format designed." },
       { name: "Full Semester Documentation", detail: "Every event, decision, and outcome compiled into a year-end report for E-Board and future Secretaries." },
     ],
-    accent: "#d4a853"
   },
 ];
 
@@ -144,7 +138,7 @@ export default function App() {
   return (
     <div style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", background: "#f5f4f0", color: "#0a0a0a", overflowX: "hidden" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Great+Vibes&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         .fade { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade.in { opacity: 1; transform: none; }
@@ -208,10 +202,24 @@ export default function App() {
             {view === "exec" ? "EXECUTIVE VIEW" : "MEMBER VIEW"}
           </span>
         </div>
+
         <div style={{ position: "relative", zIndex: 2 }}>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: "#d4a853", fontStyle: "italic", fontWeight: 300, marginBottom: 20 }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: "#d4a853", fontStyle: "italic", fontWeight: 300, marginBottom: 6 }}>
             Models of the Mecca, Inc.
           </p>
+
+          {/* Byline */}
+          <p style={{
+            fontFamily: "'Great Vibes', cursive",
+            fontSize: 30,
+            color: "rgba(212,168,83,0.55)",
+            fontWeight: 400,
+            marginBottom: 26,
+            letterSpacing: "0.02em"
+          }}>
+            by Michael Amo-Arthur
+          </p>
+
           <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(56px, 8.5vw, 130px)", color: "#f5f4f0", lineHeight: 0.88, marginBottom: 6 }}>
             SECRETARY
           </h1>
@@ -221,6 +229,7 @@ export default function App() {
           <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(56px, 8.5vw, 130px)", color: "#f5f4f0", lineHeight: 0.88, marginBottom: 52 }}>
             VISION
           </h1>
+
           <div style={{ display: "flex", gap: 48, alignItems: "flex-end", flexWrap: "wrap" }}>
             <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, color: "rgba(245,244,240,0.6)", lineHeight: 1.75, maxWidth: 420, fontWeight: 300 }}>
               A Secretary-driven framework that introduces structured communication, alumni integration, and community systems into MOTM's existing infrastructure — designed to outlast any single leadership cycle.
@@ -278,7 +287,7 @@ export default function App() {
                     <div key={j} style={{
                       background: sys.highlight ? "rgba(212,168,83,0.12)" : "rgba(255,255,255,0.05)",
                       border: `1px solid ${sys.highlight ? "rgba(212,168,83,0.4)" : "rgba(255,255,255,0.08)"}`,
-                      padding: "18px 20px", borderRadius: 0
+                      padding: "18px 20px"
                     }}>
                       <p style={{ fontSize: 12, fontWeight: 700, color: sys.highlight ? "#d4a853" : "#f5f4f0", marginBottom: 6, lineHeight: 1.3 }}>{sys.name}</p>
                       <p style={{ fontSize: 12, color: "rgba(245,244,240,0.6)", lineHeight: 1.6 }}>{sys.detail}</p>
@@ -334,7 +343,6 @@ export default function App() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
-          {/* Problem */}
           <div className={`fade d2 ${visible.culture ? "in" : ""}`} style={{ background: "#fff", border: "1px solid #e0ddd8", padding: "40px 36px" }}>
             <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.16em", color: "#999", textTransform: "uppercase", marginBottom: 20 }}>The Problem</div>
             <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#0a0a0a", marginBottom: 24 }}>FRAGMENTED FAM</h3>
@@ -351,7 +359,6 @@ export default function App() {
             ))}
           </div>
 
-          {/* Solution */}
           <div className={`fade d3 ${visible.culture ? "in" : ""}`} style={{ background: "#0a0a0a", padding: "40px 36px" }}>
             <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.16em", color: "#d4a853", textTransform: "uppercase", marginBottom: 20 }}>The Solution</div>
             <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#f5f4f0", marginBottom: 8 }}>FAMILY FIELD DAY</h3>
@@ -372,12 +379,11 @@ export default function App() {
           </div>
         </div>
 
-        {/* Quote */}
         <div className={`fade d4 ${visible.culture ? "in" : ""}`} style={{ marginTop: 2, background: "#d4a853", padding: "40px 48px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, color: "#0a0a0a", fontStyle: "italic", fontWeight: 300, maxWidth: 600, lineHeight: 1.5 }}>
             "The strongest organizations don't just build members — they build a culture that members carry with them for life."
           </p>
-          <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: "rgba(0,0,0,0.1)", flexShrink: 0 }}>FAMM</div>
+          <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: "rgba(0,0,0,0.1)", flexShrink: 0, lineHeight: 1 }}>FAMM</div>
         </div>
       </section>
 
@@ -429,8 +435,13 @@ export default function App() {
       <footer style={{ background: "#0a0a0a", padding: "56px 40px", borderTop: "1px solid #1a1a1a" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div>
-            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 44, color: "#f5f4f0", lineHeight: 1, marginBottom: 8 }}>MOTM</div>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 14, color: "rgba(245,244,240,0.35)", fontStyle: "italic" }}>Models of the Mecca, Inc.</p>
+            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 44, color: "#f5f4f0", lineHeight: 1, marginBottom: 6 }}>MOTM</div>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 14, color: "rgba(245,244,240,0.35)", fontStyle: "italic", marginBottom: 6 }}>
+              Models of the Mecca, Inc.
+            </p>
+            <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 22, color: "rgba(212,168,83,0.45)" }}>
+              by Michael Amo-Arthur
+            </p>
           </div>
           <div style={{ textAlign: "right" }}>
             <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.25)", letterSpacing: "0.14em", textTransform: "uppercase" }}>Secretary Operational Vision</p>
