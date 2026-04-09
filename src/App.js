@@ -2,522 +2,288 @@ import { useState, useEffect, useRef } from "react";
 
 const timelineData = [
   {
-    month: "MAY",
-    label: "05",
-    color: "#1a1a1a",
-    focus: "Transition & Archive Building",
-    secretary: "Organizes past documents and builds centralized filing system with consistent naming conventions",
-    innovation: "Introduces folder templates, document naming standards, and a master index spreadsheet",
-    icon: "◈"
+    period: "MAY — JUNE",
+    phase: "Transition & System Building",
+    tag: "FOUNDATION",
+    description: "E-Board transitions and internal planning season. The Secretary lays the groundwork before the semester begins.",
+    systems: [
+      { name: "Central Documentation System", detail: "Standardized folder structure, naming conventions, and a master index. Everything findable by anyone." },
+      { name: "Meeting Architecture", detail: "Agenda templates, decision logs, and follow-up protocols established for all E-Board meetings." },
+      { name: "Archive System", detail: "Past season materials organized and handed off. Institutional memory preserved." },
+      { name: "Alumni Contact Collection", detail: "Early outreach begins. Building the database before fall recruitment." },
+    ],
+    accent: "#d4a853"
   },
   {
-    month: "JUNE",
-    label: "06",
-    color: "#1a1a1a",
-    focus: "Planning & Internal Strategy Meetings",
-    secretary: "Tracks meeting agendas, records decisions, and builds the internal organizational calendar",
-    innovation: "Launches anonymous feedback form and begins alumni groundwork via LinkedIn outreach",
-    icon: "◉"
+    period: "JULY — AUGUST",
+    phase: "Pre-Semester Setup",
+    tag: "INFRASTRUCTURE",
+    description: "Systems are finalized before students return. Communication channels are ready to activate on day one.",
+    systems: [
+      { name: "Newsletter System", detail: "Template designed, distribution list built, editorial calendar drafted. Ready to launch September 1." },
+      { name: "Communication Structure", detail: "Department heads briefed on information flow. No more announcement gaps." },
+      { name: "Cross-Department Alignment", detail: "Soft sync between Models, Photography, Creative, Styling, and Marketing before the semester begins." },
+    ],
+    accent: "#d4a853"
   },
   {
-    month: "JULY",
-    label: "07",
-    color: "#1a1a1a",
-    focus: "Finalizing Logistics & Recruitment Strategy",
-    secretary: "Ensures documentation compliance, manages digital assets and forms readiness",
-    innovation: "Builds comprehensive contact directories and finalizes all systems before fall",
-    icon: "◎"
+    period: "SEPTEMBER",
+    phase: "Recruitment Period",
+    tag: "ACTIVATION",
+    description: "High activity. New prospects entering the organization. Systems are publicly deployed for the first time.",
+    systems: [
+      { name: "Newsletter Launch — Issue #1", detail: "First issue sent to full membership. Covers recruitment events, expectations, and org updates." },
+      { name: "Engagement Documentation", detail: "Attendance, participation, and prospect pipeline tracked in real time." },
+      { name: "Communication Clarity", detail: "Every department knows what's happening, when, and why. No information silos." },
+    ],
+    accent: "#d4a853"
   },
   {
-    month: "AUG",
-    label: "08",
-    color: "#1a1a1a",
-    focus: "Internal Readiness & Return to Campus",
-    secretary: "Activates communication infrastructure; initializes member onboarding documentation",
-    innovation: "Prepares newsletter framework and email list segmentation for launch",
-    icon: "◍"
+    period: "OCTOBER",
+    phase: "Development Phase",
+    tag: "EVALUATION",
+    description: "Members and prospects are being assessed. The Secretary introduces systems that make evaluation transparent and equitable.",
+    systems: [
+      { name: "Opportunity Tracking System", detail: "Every editorial, gig, and visibility opportunity is logged. Distribution is monitored to ensure fairness." },
+      { name: "Internal Transparency Layer", detail: "Members can see how opportunities are allocated. Leadership can identify gaps." },
+      { name: "Participation Audit", detail: "Cross-department event attendance reviewed. Data informs November decisions." },
+    ],
+    accent: "#d4a853"
   },
   {
-    month: "SEPT",
-    label: "09",
-    color: "#1a1a1a",
-    focus: "Recruitment Events — Interest Meeting, Plug Walk, Walk Clinic",
-    secretary: "Tracks attendance, engagement metrics, and recruitment pipeline in real time",
-    innovation: "Launches Newsletter #1 and cross-department integration protocols",
-    icon: "●"
+    period: "NOVEMBER",
+    phase: "Halfway Show + Community Activation",
+    tag: "KEY MOMENT",
+    description: "The most critical month. The Halfway Show determines the final prospect class — and what comes after redefines the culture.",
+    systems: [
+      { name: "Halfway Show Documentation", detail: "Chopping block scores, evaluations, and final class decisions recorded and archived." },
+      { name: "MOTM Family Field Day ↓", detail: "NEW initiative introduced immediately after the Halfway Show. Alumni, current members, and the new class come together for the first time. Breaks generational divisions. Builds real faMM culture.", highlight: true },
+      { name: "Alumni Network Activation", detail: "Alumni formally welcomed back into the ecosystem. LinkedIn directory launched. Spring panel planning begins." },
+    ],
+    accent: "#d4a853"
   },
   {
-    month: "OCT",
-    label: "10",
-    color: "#1a1a1a",
-    focus: "Development Events — Resume Ready & Professional Workshops",
-    secretary: "Logs participation data, distributes event evaluations, and tracks member growth",
-    innovation: "Introduces Opportunity Tracking System to equalize access across the membership",
-    icon: "◐"
+    period: "DECEMBER",
+    phase: "Wrap-Up & Spring Preparation",
+    tag: "LEGACY",
+    description: "The semester closes. The Secretary's final act is ensuring the next leadership cycle inherits a fully functional system.",
+    systems: [
+      { name: "Alumni Network — Live", detail: "Database complete. Monthly digest scheduled. Alumni are now an active part of the organization." },
+      { name: "Industry Panel Planning", detail: "Spring alumni panel fully planned. Speakers confirmed. Format designed." },
+      { name: "Full Semester Documentation", detail: "Every event, decision, and outcome compiled into a year-end report for E-Board and future Secretaries." },
+    ],
+    accent: "#d4a853"
   },
-  {
-    month: "NOV",
-    label: "11",
-    color: "#1a1a1a",
-    focus: "Community Events — FaMM Friday, BRAGxMOTM",
-    secretary: "Audits participation consistency, reviews branding alignment across departments",
-    innovation: "Proposes the Creative Direction Committee for unified brand governance",
-    icon: "◑"
-  },
-  {
-    month: "DEC",
-    label: "12",
-    color: "#1a1a1a",
-    focus: "Wrap-Up & End-of-Year Documentation",
-    secretary: "Compiles full annual report, archives season materials, and conducts exit interviews",
-    innovation: "Launches alumni database and submits spring initiative proposals to E-Board",
-    icon: "◒"
-  }
 ];
 
 const systemsData = [
   {
     title: "Monthly Newsletter",
     tag: "COMMUNICATION",
-    purpose: "Create a consistent, branded communication channel that reaches every member, prospect, and alumni.",
-    how: "Published monthly by the Secretary. Covers upcoming events, department highlights, member spotlights, and org announcements. Distributed via email and GroupMe.",
-    impact: "Eliminates information silos. Every member — regardless of department — receives the same baseline information."
+    icon: "✦",
+    purpose: "Eliminate information silos. Every member receives the same baseline update regardless of department.",
+    impact: "Reduces misinformation. Increases event turnout. Creates a paper trail of org activity."
   },
   {
     title: "Anonymous Feedback",
-    tag: "CULTURE",
-    purpose: "Give every member a safe, low-barrier channel to surface concerns, ideas, or critiques.",
-    how: "Google Form distributed monthly. Secretary aggregates themes and presents anonymized summaries to E-Board. Tracked in a running log.",
+    tag: "TRANSPARENCY",
+    icon: "◎",
+    purpose: "Give every member a low-barrier channel to surface concerns without internal politics.",
     impact: "Transforms unspoken tension into actionable data. Builds trust between leadership and membership."
   },
   {
     title: "Opportunity Tracking",
     tag: "EQUITY",
-    purpose: "Ensure modeling gigs, editorial features, partnerships, and paid opportunities reach all eligible members — not just the most visible.",
-    how: "Secretary maintains a shared spreadsheet of all incoming opportunities. Tagged by type, eligibility, and deadline. Members opt in; Secretary monitors distribution.",
-    impact: "Closes the access gap. Every member has equal visibility into what's available."
+    icon: "◈",
+    purpose: "Ensure editorials, gigs, and visibility opportunities are distributed fairly across all eligible members.",
+    impact: "Closes the access gap. Leadership can see and correct imbalances before they become culture problems."
   },
   {
     title: "Documentation & Archive",
-    tag: "LEGACY",
-    purpose: "Preserve institutional knowledge so the org doesn't restart from zero each leadership cycle.",
-    how: "Centralized Google Drive with strict naming conventions: [YEAR_SEMESTER_DEPT_TITLE]. Secretary conducts quarterly audits. End-of-year archive is handed off at transition.",
+    tag: "CONTINUITY",
+    icon: "◉",
+    purpose: "Preserve institutional knowledge so the organization doesn't restart from zero every leadership cycle.",
     impact: "Future boards inherit a fully functional system. History becomes a competitive advantage."
   },
   {
-    title: "Alumni Network",
+    title: "Alumni Network + Industry Panel",
     tag: "GROWTH",
+    icon: "◐",
     purpose: "Transform former members into an active network of mentors, collaborators, and industry connectors.",
-    how: "Secretary builds and maintains a LinkedIn alumni directory. Annual alumni panel hosted in November. Monthly email digest keeps alumni informed.",
-    impact: "MOTM becomes a career-long affiliation, not just a college org. Alumni feed the pipeline."
-  }
+    impact: "MOTM becomes a career-long affiliation. Spring industry panel connects current members to real opportunities."
+  },
 ];
 
-const problemSolutions = [
-  { problem: "Lack of Communication", solution: "Structured monthly newsletter keeps all members informed and aligned", icon: "01" },
-  { problem: "Fragmented 'FaMM' Culture", solution: "Cross-department integration events and shared communication channels", icon: "02" },
-  { problem: "Unequal Opportunity Distribution", solution: "Centralized opportunity tracking system with equitable access protocols", icon: "03" },
-  { problem: "Weak Alumni Engagement", solution: "Alumni panels, directory database, and regular touchpoint communications", icon: "04" },
-  { problem: "Inconsistent Branding", solution: "Creative Direction Committee overseeing brand standards across all outputs", icon: "05" }
-];
-
-const mockData = {
-  events: [
-    { name: "Interest Meeting", attendance: 87, cap: 100 },
-    { name: "Plug Walk", attendance: 64, cap: 80 },
-    { name: "Walk Clinic", attendance: 72, cap: 80 },
-    { name: "Resume Ready", attendance: 58, cap: 75 },
-    { name: "FaMM Friday", attendance: 91, cap: 100 },
-    { name: "BRAGxMOTM", attendance: 79, cap: 90 },
-  ],
-  engagement: [
-    { dept: "Models", score: 92 },
-    { dept: "Photography", score: 78 },
-    { dept: "Creative", score: 85 },
-    { dept: "Marketing", score: 71 },
-    { dept: "Styling", score: 88 },
-  ]
-};
-
-export default function MOTMApp() {
+export default function App() {
   const [activeMonth, setActiveMonth] = useState(null);
   const [view, setView] = useState("exec");
-  const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
-  const [visibleSections, setVisibleSections] = useState({});
-  const sectionRefs = useRef({});
+  const [visible, setVisible] = useState({});
+  const refs = useRef({});
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setVisibleSections(prev => ({ ...prev, [entry.target.id]: true }));
-          }
-        });
-      },
-      { threshold: 0.1 }
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) setVisible(v => ({ ...v, [e.target.id]: true }));
+      }),
+      { threshold: 0.08 }
     );
-    Object.values(sectionRefs.current).forEach(ref => {
-      if (ref) observer.observe(ref);
-    });
-    return () => observer.disconnect();
+    Object.values(refs.current).forEach(r => r && obs.observe(r));
+    return () => obs.disconnect();
   }, []);
 
-  const setRef = (id) => (el) => {
-    sectionRefs.current[id] = el;
-  };
-
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setActiveSection(id);
-  };
-
-  const navItems = [
-    { id: "timeline", label: "Timeline" },
-    { id: "systems", label: "Systems" },
-    { id: "problems", label: "Strategy" },
-    { id: "data", label: "Data" },
-  ];
+  const ref = id => el => { refs.current[id] = el; };
+  const scrollTo = id => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", background: "#f5f4f0", color: "#0a0a0a", minHeight: "100vh", overflowX: "hidden" }}>
+    <div style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", background: "#f5f4f0", color: "#0a0a0a", overflowX: "hidden" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        .fade-up {
-          opacity: 0;
-          transform: translateY(32px);
-          transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .fade-up.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-        .stagger-5 { transition-delay: 0.5s; }
-
-        .nav-link {
-          font-family: 'Space Mono', monospace;
-          font-size: 11px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: #666;
-          cursor: pointer;
-          padding: 6px 0;
-          position: relative;
-          transition: color 0.2s;
-          text-decoration: none;
-          border: none;
-          background: none;
-        }
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: 0; left: 0;
-          width: 0; height: 1px;
-          background: #0a0a0a;
-          transition: width 0.3s;
-        }
-        .nav-link:hover { color: #0a0a0a; }
-        .nav-link:hover::after { width: 100%; }
-        .nav-link.active { color: #0a0a0a; }
-        .nav-link.active::after { width: 100%; }
-
-        .month-card {
-          cursor: pointer;
-          border: 1px solid #e0ddd8;
-          background: #fff;
-          transition: all 0.25s ease;
-          position: relative;
-          overflow: hidden;
-        }
-        .month-card::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0;
-          width: 3px; height: 100%;
-          background: #0a0a0a;
-          transform: scaleY(0);
-          transform-origin: bottom;
-          transition: transform 0.3s ease;
-        }
-        .month-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-        .month-card:hover::before { transform: scaleY(1); }
-        .month-card.active { background: #0a0a0a; color: #f5f4f0; border-color: #0a0a0a; }
-        .month-card.active::before { background: #d4a853; transform: scaleY(1); }
-
-        .system-card {
-          background: #fff;
-          border: 1px solid #e0ddd8;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-        .system-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-          border-color: #0a0a0a;
-        }
-
-        .toggle-btn {
-          font-family: 'Space Mono', monospace;
-          font-size: 10px;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          padding: 10px 24px;
-          cursor: pointer;
-          transition: all 0.2s;
-          border: 1px solid #0a0a0a;
-        }
-        .toggle-btn.active { background: #0a0a0a; color: #f5f4f0; }
-        .toggle-btn:not(.active) { background: transparent; color: #0a0a0a; }
-        .toggle-btn:hover:not(.active) { background: #0a0a0a; color: #f5f4f0; }
-
-        .bar-fill {
-          height: 100%;
-          background: #0a0a0a;
-          transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero-title {
-          font-family: 'Bebas Neue', sans-serif;
-          letter-spacing: 0.03em;
-          line-height: 0.9;
-        }
-
-        .serif { font-family: 'Cormorant Garamond', serif; }
-        .mono { font-family: 'Space Mono', monospace; }
-
-        .gold-accent { color: #d4a853; }
-        .gold-bg { background: #d4a853; }
-
-        .problem-row {
-          border-bottom: 1px solid #e0ddd8;
-          transition: background 0.2s;
-          cursor: default;
-        }
-        .problem-row:hover { background: #f0ede8; }
-
-        .section-label {
-          font-family: 'Space Mono', monospace;
-          font-size: 10px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: #999;
-        }
-
-        .animated-bar { width: 0; }
-        .bar-animate .animated-bar { width: var(--target-width); }
-
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #f5f4f0; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+        .fade { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade.in { opacity: 1; transform: none; }
+        .d1 { transition-delay: 0.05s; } .d2 { transition-delay: 0.15s; } .d3 { transition-delay: 0.25s; } .d4 { transition-delay: 0.35s; } .d5 { transition-delay: 0.45s; }
+        .nav-btn { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; background: none; border: none; cursor: pointer; color: #888; padding: 4px 0; position: relative; transition: color 0.2s; }
+        .nav-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: #0a0a0a; transition: width 0.25s; }
+        .nav-btn:hover { color: #0a0a0a; }
+        .nav-btn:hover::after { width: 100%; }
+        .month-card { cursor: pointer; border: 1px solid #e0ddd8; background: #fff; transition: box-shadow 0.25s, transform 0.25s; }
+        .month-card:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0,0,0,0.07); }
+        .month-card.open { background: #0a0a0a; color: #f5f4f0; border-color: #0a0a0a; }
+        .sys-card { background: #111; border: 1px solid #222; transition: border-color 0.25s, transform 0.25s; }
+        .sys-card:hover { border-color: #d4a853; transform: translateY(-3px); }
+        .tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; padding: 3px 9px; border: 1px solid; display: inline-block; }
+        .row-hover { border-bottom: 1px solid #e8e5e0; transition: background 0.18s; }
+        .row-hover:hover { background: #eeeae4; }
+        ::-webkit-scrollbar { width: 3px; } ::-webkit-scrollbar-thumb { background: #ccc; }
       `}</style>
 
       {/* NAV */}
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? "rgba(245,244,240,0.95)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
+        height: 60, padding: "0 40px", display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: scrolled ? "rgba(245,244,240,0.94)" : "transparent",
+        backdropFilter: scrolled ? "blur(14px)" : "none",
         borderBottom: scrolled ? "1px solid #e0ddd8" : "1px solid transparent",
-        transition: "all 0.4s ease",
-        padding: "0 40px",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        height: "64px"
+        transition: "all 0.35s"
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <div style={{ width: 8, height: 8, background: "#0a0a0a", borderRadius: "50%" }} />
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>MOTM</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ width: 7, height: 7, background: "#0a0a0a", borderRadius: "50%" }} />
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: "0.16em", fontWeight: 700 }}>MOTM</span>
         </div>
-
-        <div style={{ display: "flex", gap: 36 }}>
-          {navItems.map(item => (
-            <button key={item.id} className={`nav-link ${activeSection === item.id ? "active" : ""}`} onClick={() => scrollTo(item.id)}>
-              {item.label}
-            </button>
+        <div style={{ display: "flex", gap: 32 }}>
+          {["timeline", "systems", "culture", "impact"].map(id => (
+            <button key={id} className="nav-btn" onClick={() => scrollTo(id)}>{id}</button>
           ))}
         </div>
-
-        <div style={{ display: "flex", gap: 0 }}>
-          <button className={`toggle-btn ${view === "exec" ? "active" : ""}`} onClick={() => setView("exec")}>
-            Exec
-          </button>
-          <button className={`toggle-btn ${view === "member" ? "active" : ""}`} onClick={() => setView("member")}>
-            Member
-          </button>
+        <div style={{ display: "flex" }}>
+          {["exec", "member"].map(v => (
+            <button key={v} onClick={() => setView(v)} style={{
+              fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase",
+              padding: "7px 18px", cursor: "pointer", transition: "all 0.18s",
+              border: "1px solid #0a0a0a",
+              background: view === v ? "#0a0a0a" : "transparent",
+              color: view === v ? "#f5f4f0" : "#0a0a0a"
+            }}>{v}</button>
+          ))}
         </div>
       </nav>
 
       {/* HERO */}
-      <section id="home" style={{
-        minHeight: "100vh",
-        display: "flex", flexDirection: "column", justifyContent: "flex-end",
-        padding: "0 40px 80px",
-        background: "#0a0a0a",
-        position: "relative", overflow: "hidden"
-      }}>
-        {/* Background texture */}
-        <div style={{
-          position: "absolute", inset: 0,
-          backgroundImage: "radial-gradient(circle at 70% 30%, #1a1a1a 0%, #0a0a0a 60%)",
-          opacity: 0.8
-        }} />
-
-        {/* Decorative grid lines */}
-        {[...Array(6)].map((_, i) => (
-          <div key={i} style={{
-            position: "absolute",
-            top: 0, bottom: 0,
-            left: `${(i + 1) * (100 / 7)}%`,
-            width: 1, background: "rgba(255,255,255,0.04)"
-          }} />
+      <section style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 40px 80px", position: "relative", overflow: "hidden" }}>
+        {[...Array(7)].map((_, i) => (
+          <div key={i} style={{ position: "absolute", top: 0, bottom: 0, left: `${(i + 1) * 100 / 8}%`, width: 1, background: "rgba(255,255,255,0.03)" }} />
         ))}
-
-        {/* Top bar */}
-        <div style={{
-          position: "absolute", top: 0, left: 0, right: 0,
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "100px 40px 0",
-          zIndex: 2
-        }}>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-            Secretary Operational System — FY 2025–26
+        <div style={{ position: "absolute", top: 96, left: 40, right: 40, display: "flex", justifyContent: "space-between", zIndex: 2 }}>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.25)", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+            Secretary Operational Vision — FY 2025–26
           </span>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.2em" }}>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.25)", letterSpacing: "0.14em" }}>
             {view === "exec" ? "EXECUTIVE VIEW" : "MEMBER VIEW"}
           </span>
         </div>
-
-        {/* Gold accent line */}
-        <div style={{ position: "absolute", top: "50%", left: 40, width: 60, height: 1, background: "#d4a853", zIndex: 2 }} />
-
         <div style={{ position: "relative", zIndex: 2 }}>
-          <p className="serif" style={{ fontSize: 22, color: "#d4a853", marginBottom: 24, fontStyle: "italic", fontWeight: 300 }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: "#d4a853", fontStyle: "italic", fontWeight: 300, marginBottom: 20 }}>
             Models of the Mecca, Inc.
           </p>
-          <h1 className="hero-title" style={{ fontSize: "clamp(60px, 9vw, 140px)", color: "#f5f4f0", marginBottom: 8 }}>
+          <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(56px, 8.5vw, 130px)", color: "#f5f4f0", lineHeight: 0.88, marginBottom: 6 }}>
             SECRETARY
           </h1>
-          <h1 className="hero-title" style={{ fontSize: "clamp(60px, 9vw, 140px)", color: "#f5f4f0", marginBottom: 8, WebkitTextStroke: "1px rgba(255,255,255,0.3)", color: "transparent" }}>
+          <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(56px, 8.5vw, 130px)", lineHeight: 0.88, marginBottom: 6, WebkitTextStroke: "1px rgba(255,255,255,0.25)", color: "transparent" }}>
             OPERATIONAL
           </h1>
-          <h1 className="hero-title" style={{ fontSize: "clamp(60px, 9vw, 140px)", color: "#f5f4f0", marginBottom: 48 }}>
-            SYSTEM
+          <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(56px, 8.5vw, 130px)", color: "#f5f4f0", lineHeight: 0.88, marginBottom: 52 }}>
+            VISION
           </h1>
-
-          <div style={{ display: "flex", gap: 40, alignItems: "flex-end" }}>
-            <div style={{ maxWidth: 440 }}>
-              <p className="serif" style={{ fontSize: 18, color: "rgba(245,244,240,0.7)", lineHeight: 1.7, fontWeight: 300 }}>
-                A Secretary-driven infrastructure that transforms MOTM into a documentation-first, communication-forward organization built to outlast any single leadership cycle.
-              </p>
-            </div>
-            <div style={{ display: "flex", gap: 48 }}>
-              {["Structure", "Communication", "Legacy"].map((word, i) => (
+          <div style={{ display: "flex", gap: 48, alignItems: "flex-end", flexWrap: "wrap" }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, color: "rgba(245,244,240,0.6)", lineHeight: 1.75, maxWidth: 420, fontWeight: 300 }}>
+              A Secretary-driven framework that introduces structured communication, alumni integration, and community systems into MOTM's existing infrastructure — designed to outlast any single leadership cycle.
+            </p>
+            <div style={{ display: "flex", gap: 40 }}>
+              {["Structure", "Community", "Legacy"].map((w, i) => (
                 <div key={i} style={{ textAlign: "center" }}>
-                  <div style={{ width: 1, height: 40, background: "#d4a853", margin: "0 auto 12px" }} />
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
-                    {word}
-                  </span>
+                  <div style={{ width: 1, height: 36, background: "#d4a853", margin: "0 auto 10px" }} />
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.4)", letterSpacing: "0.14em", textTransform: "uppercase" }}>{w}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
-
-        <button onClick={() => scrollTo("timeline")} style={{
-          position: "absolute", bottom: 40, right: 40,
-          fontFamily: "'Space Mono', monospace", fontSize: 10,
-          letterSpacing: "0.15em", textTransform: "uppercase",
-          color: "rgba(255,255,255,0.5)", background: "none", border: "none",
-          cursor: "pointer", display: "flex", alignItems: "center", gap: 12,
-          transition: "color 0.2s"
-        }}>
-          Scroll to explore
-          <span style={{ fontSize: 16 }}>↓</span>
-        </button>
       </section>
 
       {/* TIMELINE */}
-      <section id="timeline" ref={setRef("timeline")} style={{ padding: "120px 40px", background: "#f5f4f0" }}>
-        <div className={`fade-up ${visibleSections.timeline ? "visible" : ""}`} style={{ marginBottom: 64 }}>
-          <span className="section-label">01 — Operational Calendar</span>
-          <h2 className="hero-title" style={{ fontSize: "clamp(48px, 6vw, 80px)", marginTop: 16, marginBottom: 16 }}>
+      <section id="timeline" ref={ref("timeline")} style={{ padding: "110px 40px", background: "#f5f4f0" }}>
+        <div className={`fade d1 ${visible.timeline ? "in" : ""}`} style={{ marginBottom: 60 }}>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "#999" }}>01 — Strategic Timeline</span>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 5.5vw, 76px)", marginTop: 14, lineHeight: 1 }}>
             MAY → DECEMBER
           </h2>
-          <p className="serif" style={{ fontSize: 18, color: "#666", maxWidth: 540, fontWeight: 300, lineHeight: 1.7 }}>
-            Eight months. Every initiative, responsibility, and innovation mapped to a single unified calendar.
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, color: "#666", maxWidth: 480, marginTop: 10, fontWeight: 300, lineHeight: 1.7 }}>
+            Not a list of events. A map of where new systems are introduced into the organization's existing rhythm.
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 2 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {timelineData.map((item, i) => (
-            <div
-              key={item.month}
-              className={`month-card fade-up stagger-${Math.min(i + 1, 5)} ${visibleSections.timeline ? "visible" : ""} ${activeMonth === i ? "active" : ""}`}
-              onClick={() => setActiveMonth(activeMonth === i ? null : i)}
-              style={{ padding: "32px 28px" }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
-                <div>
-                  <div style={{
-                    fontFamily: "'Space Mono', monospace", fontSize: 10,
-                    letterSpacing: "0.2em", textTransform: "uppercase",
-                    color: activeMonth === i ? "rgba(245,244,240,0.5)" : "#999",
-                    marginBottom: 6
-                  }}>
-                    {item.label}
+            <div key={i} className={`month-card fade d${Math.min(i + 1, 5)} ${visible.timeline ? "in" : ""} ${activeMonth === i ? "open" : ""}`}
+              onClick={() => setActiveMonth(activeMonth === i ? null : i)}>
+              <div style={{ padding: "28px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
+                  <div style={{ minWidth: 120 }}>
+                    <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.16em", color: activeMonth === i ? "#d4a853" : "#999", textTransform: "uppercase", marginBottom: 4 }}>
+                      {item.tag}
+                    </div>
+                    <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, color: activeMonth === i ? "#f5f4f0" : "#0a0a0a", letterSpacing: "0.02em" }}>
+                      {item.period}
+                    </div>
                   </div>
-                  <div className="hero-title" style={{ fontSize: 36, color: activeMonth === i ? "#f5f4f0" : "#0a0a0a" }}>
-                    {item.month}
+                  <div style={{ width: 1, height: 36, background: activeMonth === i ? "rgba(255,255,255,0.12)" : "#e0ddd8" }} />
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: activeMonth === i ? "#f5f4f0" : "#0a0a0a", marginBottom: 3 }}>{item.phase}</p>
+                    <p style={{ fontSize: 12, color: activeMonth === i ? "rgba(245,244,240,0.55)" : "#888", maxWidth: 480, lineHeight: 1.55 }}>{item.description}</p>
                   </div>
                 </div>
-                <div style={{ fontSize: 24, opacity: 0.4 }}>{item.icon}</div>
+                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 18, color: activeMonth === i ? "rgba(255,255,255,0.3)" : "#ccc", transform: activeMonth === i ? "rotate(45deg)" : "none", transition: "transform 0.25s" }}>+</div>
               </div>
 
-              <p style={{
-                fontSize: 13, fontWeight: 600,
-                color: activeMonth === i ? "#f5f4f0" : "#0a0a0a",
-                marginBottom: 12, lineHeight: 1.4
-              }}>
-                {item.focus}
-              </p>
-
               {activeMonth === i && (
-                <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: 16, marginTop: 4 }}>
-                  <div style={{ marginBottom: 14 }}>
-                    <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.15em", color: "#d4a853", marginBottom: 6, textTransform: "uppercase" }}>
-                      Secretary Role
+                <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", padding: "28px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+                  {item.systems.map((sys, j) => (
+                    <div key={j} style={{
+                      background: sys.highlight ? "rgba(212,168,83,0.12)" : "rgba(255,255,255,0.05)",
+                      border: `1px solid ${sys.highlight ? "rgba(212,168,83,0.4)" : "rgba(255,255,255,0.08)"}`,
+                      padding: "18px 20px", borderRadius: 0
+                    }}>
+                      <p style={{ fontSize: 12, fontWeight: 700, color: sys.highlight ? "#d4a853" : "#f5f4f0", marginBottom: 6, lineHeight: 1.3 }}>{sys.name}</p>
+                      <p style={{ fontSize: 12, color: "rgba(245,244,240,0.6)", lineHeight: 1.6 }}>{sys.detail}</p>
                     </div>
-                    <p style={{ fontSize: 12, color: "rgba(245,244,240,0.75)", lineHeight: 1.6 }}>{item.secretary}</p>
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.15em", color: "#d4a853", marginBottom: 6, textTransform: "uppercase" }}>
-                      Strategic Addition
-                    </div>
-                    <p style={{ fontSize: 12, color: "rgba(245,244,240,0.75)", lineHeight: 1.6 }}>{item.innovation}</p>
-                  </div>
-                </div>
-              )}
-
-              {activeMonth !== i && (
-                <div style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: 9,
-                  color: "#999", letterSpacing: "0.1em", marginTop: 16,
-                  textTransform: "uppercase"
-                }}>
-                  Tap to expand →
+                  ))}
                 </div>
               )}
             </div>
@@ -526,53 +292,30 @@ export default function MOTMApp() {
       </section>
 
       {/* SYSTEMS */}
-      <section id="systems" ref={setRef("systems")} style={{ padding: "120px 40px", background: "#0a0a0a" }}>
-        <div className={`fade-up ${visibleSections.systems ? "visible" : ""}`} style={{ marginBottom: 64 }}>
-          <span className="section-label" style={{ color: "rgba(255,255,255,0.4)" }}>02 — Infrastructure</span>
-          <h2 className="hero-title" style={{ fontSize: "clamp(48px, 6vw, 80px)", marginTop: 16, marginBottom: 16, color: "#f5f4f0" }}>
-            KEY SYSTEMS
+      <section id="systems" ref={ref("systems")} style={{ padding: "110px 40px", background: "#0a0a0a" }}>
+        <div className={`fade d1 ${visible.systems ? "in" : ""}`} style={{ marginBottom: 60 }}>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>02 — Infrastructure</span>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 5.5vw, 76px)", marginTop: 14, color: "#f5f4f0", lineHeight: 1 }}>
+            FIVE SYSTEMS
           </h2>
-          <p className="serif" style={{ fontSize: 18, color: "rgba(245,244,240,0.5)", maxWidth: 540, fontWeight: 300, lineHeight: 1.7 }}>
-            Five foundational systems that transform ad-hoc coordination into a repeatable, scalable operational model.
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, color: "rgba(245,244,240,0.45)", maxWidth: 480, marginTop: 10, fontWeight: 300, lineHeight: 1.7 }}>
+            Each system addresses a specific organizational failure. Together, they create an infrastructure that runs independent of who holds any single role.
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 2 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 2 }}>
           {systemsData.map((sys, i) => (
-            <div
-              key={sys.title}
-              className={`system-card fade-up stagger-${Math.min(i + 1, 5)} ${visibleSections.systems ? "visible" : ""}`}
-              style={{ padding: "36px 32px", background: "#111", border: "1px solid #222" }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
-                <div style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: 9,
-                  letterSpacing: "0.2em", color: "#d4a853",
-                  border: "1px solid rgba(212,168,83,0.3)",
-                  padding: "4px 10px", textTransform: "uppercase"
-                }}>
-                  {sys.tag}
-                </div>
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 24, color: "rgba(255,255,255,0.1)" }}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+            <div key={i} className={`sys-card fade d${Math.min(i + 1, 5)} ${visible.systems ? "in" : ""}`} style={{ padding: "34px 30px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 22 }}>
+                <span className="tag" style={{ color: "#d4a853", borderColor: "rgba(212,168,83,0.3)" }}>{sys.tag}</span>
+                <span style={{ fontSize: 22, color: "rgba(255,255,255,0.12)" }}>{sys.icon}</span>
               </div>
-
-              <h3 className="hero-title" style={{ fontSize: 32, color: "#f5f4f0", marginBottom: 20 }}>
-                {sys.title}
-              </h3>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                {[
-                  { label: "Purpose", text: sys.purpose },
-                  { label: "How It Works", text: sys.how },
-                  { label: "Impact", text: sys.impact },
-                ].map(item => (
+              <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 30, color: "#f5f4f0", marginBottom: 20, letterSpacing: "0.02em" }}>{sys.title}</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                {[{ label: "Purpose", text: sys.purpose }, { label: "Impact", text: sys.impact }].map(item => (
                   <div key={item.label}>
-                    <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.15em", color: "#555", textTransform: "uppercase", marginBottom: 4 }}>
-                      {item.label}
-                    </div>
-                    <p style={{ fontSize: 13, color: "rgba(245,244,240,0.65)", lineHeight: 1.65 }}>{item.text}</p>
+                    <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, letterSpacing: "0.16em", color: "#555", textTransform: "uppercase", marginBottom: 4 }}>{item.label}</div>
+                    <p style={{ fontSize: 13, color: "rgba(245,244,240,0.6)", lineHeight: 1.65 }}>{item.text}</p>
                   </div>
                 ))}
               </div>
@@ -581,193 +324,122 @@ export default function MOTMApp() {
         </div>
       </section>
 
-      {/* PROBLEMS → SOLUTIONS */}
-      <section id="problems" ref={setRef("problems")} style={{ padding: "120px 40px", background: "#f5f4f0" }}>
-        <div className={`fade-up ${visibleSections.problems ? "visible" : ""}`} style={{ marginBottom: 64 }}>
-          <span className="section-label">03 — Strategic Rationale</span>
-          <h2 className="hero-title" style={{ fontSize: "clamp(48px, 6vw, 80px)", marginTop: 16, marginBottom: 16 }}>
-            PROBLEMS → SOLUTIONS
+      {/* CULTURE */}
+      <section id="culture" ref={ref("culture")} style={{ padding: "110px 40px", background: "#f5f4f0" }}>
+        <div className={`fade d1 ${visible.culture ? "in" : ""}`} style={{ marginBottom: 60 }}>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "#999" }}>03 — Community</span>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 5.5vw, 76px)", marginTop: 14, lineHeight: 1 }}>
+            CULTURE INITIATIVE
           </h2>
-          <p className="serif" style={{ fontSize: 18, color: "#666", maxWidth: 540, fontWeight: 300, lineHeight: 1.7 }}>
-            Every initiative in this system was designed to address a specific, documented organizational failure.
-          </p>
         </div>
 
-        <div style={{ border: "1px solid #e0ddd8" }}>
-          <div style={{
-            display: "grid", gridTemplateColumns: "60px 1fr 1fr",
-            background: "#0a0a0a", padding: "14px 28px"
-          }}>
-            {["#", "PROBLEM", "SOLUTION"].map(h => (
-              <span key={h} style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.15em", color: "rgba(245,244,240,0.5)", textTransform: "uppercase" }}>
-                {h}
-              </span>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+          {/* Problem */}
+          <div className={`fade d2 ${visible.culture ? "in" : ""}`} style={{ background: "#fff", border: "1px solid #e0ddd8", padding: "40px 36px" }}>
+            <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.16em", color: "#999", textTransform: "uppercase", marginBottom: 20 }}>The Problem</div>
+            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#0a0a0a", marginBottom: 24 }}>FRAGMENTED FAM</h3>
+            {[
+              "Alumni disconnected from current members after graduation",
+              "Departments operate in silos with minimal cross-interaction",
+              "New class feels separated from the broader organization",
+              "Culture exists in pockets, not as a unified whole"
+            ].map((p, i) => (
+              <div key={i} className="row-hover" style={{ padding: "14px 0", display: "flex", gap: 14, alignItems: "flex-start" }}>
+                <div style={{ width: 5, height: 5, background: "#ccc", borderRadius: "50%", marginTop: 6, flexShrink: 0 }} />
+                <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>{p}</p>
+              </div>
             ))}
           </div>
 
-          {problemSolutions.map((item, i) => (
-            <div
-              key={i}
-              className={`problem-row fade-up stagger-${Math.min(i + 1, 5)} ${visibleSections.problems ? "visible" : ""}`}
-              style={{ display: "grid", gridTemplateColumns: "60px 1fr 1fr", padding: "24px 28px", alignItems: "start" }}
-            >
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: "#d4a853", fontWeight: 700 }}>
-                {item.icon}
-              </span>
-              <div style={{ paddingRight: 40 }}>
-                <p style={{ fontSize: 14, fontWeight: 700, color: "#0a0a0a", marginBottom: 2 }}>{item.problem}</p>
+          {/* Solution */}
+          <div className={`fade d3 ${visible.culture ? "in" : ""}`} style={{ background: "#0a0a0a", padding: "40px 36px" }}>
+            <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.16em", color: "#d4a853", textTransform: "uppercase", marginBottom: 20 }}>The Solution</div>
+            <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#f5f4f0", marginBottom: 8 }}>FAMILY FIELD DAY</h3>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, color: "rgba(245,244,240,0.5)", fontStyle: "italic", marginBottom: 24 }}>
+              Introduced immediately after the Halfway Show — November
+            </p>
+            {[
+              { title: "Three Generations, One Space", detail: "Alumni, current members, and the new class meet for the first time outside of a formal event." },
+              { title: "Break the Division", detail: "Structured activities designed to create new connections across departments and years." },
+              { title: "Build Real Culture", detail: "FaMM isn't a word — it's a feeling. This event makes it tangible." },
+              { title: "Alumni Re-Entry Point", detail: "Field Day serves as the formal moment alumni are welcomed back into the ecosystem." },
+            ].map((item, i) => (
+              <div key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", padding: "14px 0" }}>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "#f5f4f0", marginBottom: 3 }}>{item.title}</p>
+                <p style={{ fontSize: 12, color: "rgba(245,244,240,0.5)", lineHeight: 1.6 }}>{item.detail}</p>
               </div>
-              <div>
-                <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>{item.solution}</p>
+            ))}
+          </div>
+        </div>
+
+        {/* Quote */}
+        <div className={`fade d4 ${visible.culture ? "in" : ""}`} style={{ marginTop: 2, background: "#d4a853", padding: "40px 48px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, color: "#0a0a0a", fontStyle: "italic", fontWeight: 300, maxWidth: 600, lineHeight: 1.5 }}>
+            "The strongest organizations don't just build members — they build a culture that members carry with them for life."
+          </p>
+          <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: "rgba(0,0,0,0.1)", flexShrink: 0 }}>FAMM</div>
+        </div>
+      </section>
+
+      {/* FUTURE IMPACT */}
+      <section id="impact" ref={ref("impact")} style={{ padding: "110px 40px", background: "#111" }}>
+        <div className={`fade d1 ${visible.impact ? "in" : ""}`} style={{ marginBottom: 60 }}>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>04 — Forward</span>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 5.5vw, 76px)", marginTop: 14, color: "#f5f4f0", lineHeight: 1 }}>
+            SPRING IMPACT
+          </h2>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, color: "rgba(245,244,240,0.45)", maxWidth: 480, marginTop: 10, fontWeight: 300, lineHeight: 1.7 }}>
+            Everything built in the fall is designed to activate in the spring. The Secretary's work compounds.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 2 }}>
+          {[
+            { num: "01", title: "Alumni Industry Panel", detail: "Speakers confirmed in December. Spring panel connects current members to working professionals in fashion, photography, and creative direction.", tag: "FEBRUARY" },
+            { num: "02", title: "Stronger Brand Identity", detail: "Creative Direction Committee — proposed in November — begins formal oversight of all MOTM visual outputs in the spring semester.", tag: "ONGOING" },
+            { num: "03", title: "Industry-Ready Members", detail: "Comp cards, model bags, portfolio reviews, and casting call preparation. Members enter the industry with real tools.", tag: "MARCH" },
+            { num: "04", title: "Unified Organization", detail: "After Family Field Day and a full semester of structured communication, the org enters spring as a cohesive unit — not a collection of departments.", tag: "FULL SEMESTER" },
+          ].map((item, i) => (
+            <div key={i} className={`fade d${i + 1} ${visible.impact ? "in" : ""}`} style={{ background: "#1a1a1a", border: "1px solid #222", padding: "34px 28px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 28, color: "rgba(255,255,255,0.07)", fontWeight: 700 }}>{item.num}</span>
+                <span className="tag" style={{ color: "#d4a853", borderColor: "rgba(212,168,83,0.25)", fontSize: 8 }}>{item.tag}</span>
               </div>
+              <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 26, color: "#f5f4f0", marginBottom: 12 }}>{item.title}</h3>
+              <p style={{ fontSize: 13, color: "rgba(245,244,240,0.55)", lineHeight: 1.65 }}>{item.detail}</p>
             </div>
           ))}
         </div>
 
         {view === "exec" && (
-          <div className={`fade-up ${visibleSections.problems ? "visible" : ""}`} style={{
-            marginTop: 48, background: "#0a0a0a", padding: "36px 40px",
-            display: "flex", gap: 48, alignItems: "center"
-          }}>
+          <div className={`fade d5 ${visible.impact ? "in" : ""}`} style={{ marginTop: 2, background: "#d4a853", padding: "36px 40px", display: "flex", gap: 40, alignItems: "center" }}>
             <div style={{ flex: 1 }}>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", color: "#d4a853", textTransform: "uppercase" }}>
-                Executive Note
-              </span>
-              <h4 className="hero-title" style={{ fontSize: 28, color: "#f5f4f0", marginTop: 8, marginBottom: 12 }}>
-                STRUCTURAL RECOMMENDATION
-              </h4>
-              <p className="serif" style={{ fontSize: 16, color: "rgba(245,244,240,0.65)", lineHeight: 1.7, fontWeight: 300 }}>
-                This system functions only if the Secretary role is resourced correctly. Recommendation: Secretary should receive a defined 10–12 hrs/month allocation, have direct E-Board access, and present a monthly operations report at every board meeting.
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, letterSpacing: "0.18em", color: "rgba(0,0,0,0.5)", textTransform: "uppercase" }}>Executive Note</span>
+              <h4 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 26, color: "#0a0a0a", marginTop: 8, marginBottom: 10 }}>SECRETARY RESOURCE REQUIREMENT</h4>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, color: "rgba(0,0,0,0.7)", lineHeight: 1.7, fontWeight: 300 }}>
+                This system functions only if the Secretary role is properly resourced. Recommendation: defined 10–12 hrs/month allocation, direct E-Board access, and a standing agenda item at every board meeting for an operations report.
               </p>
             </div>
-            <div style={{ width: 1, height: 80, background: "rgba(255,255,255,0.1)" }} />
-            <div style={{ textAlign: "right" }}>
-              <div className="hero-title" style={{ fontSize: 56, color: "rgba(255,255,255,0.08)" }}>SEC</div>
-            </div>
+            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 80, color: "rgba(0,0,0,0.08)", flexShrink: 0, lineHeight: 1 }}>SEC</div>
           </div>
         )}
       </section>
 
-      {/* DATA DASHBOARD */}
-      <section id="data" ref={setRef("data")} style={{ padding: "120px 40px", background: "#111" }}>
-        <div className={`fade-up ${visibleSections.data ? "visible" : ""}`} style={{ marginBottom: 64 }}>
-          <span className="section-label" style={{ color: "rgba(255,255,255,0.4)" }}>04 — Analytics</span>
-          <h2 className="hero-title" style={{ fontSize: "clamp(48px, 6vw, 80px)", marginTop: 16, marginBottom: 16, color: "#f5f4f0" }}>
-            ENGAGEMENT DASHBOARD
-          </h2>
-          <p className="serif" style={{ fontSize: 18, color: "rgba(245,244,240,0.5)", maxWidth: 540, fontWeight: 300, lineHeight: 1.7 }}>
-            Mock data visualizing the participation and engagement metrics the Secretary system is designed to track.
-          </p>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
-          {/* Event Attendance */}
-          <div className={`fade-up ${visibleSections.data ? "visible" : ""}`} style={{ background: "#1a1a1a", border: "1px solid #222", padding: "36px 32px" }}>
-            <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.15em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", marginBottom: 24 }}>
-              Event Attendance — Fall 2025
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              {mockData.events.map((ev, i) => (
-                <div key={ev.name}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                    <span style={{ fontSize: 12, color: "rgba(255,255,255,0.7)" }}>{ev.name}</span>
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: "#d4a853" }}>
-                      {ev.attendance}/{ev.cap}
-                    </span>
-                  </div>
-                  <div style={{ height: 4, background: "rgba(255,255,255,0.06)", borderRadius: 2, overflow: "hidden" }}>
-                    <div
-                      className={`bar-fill ${visibleSections.data ? "" : "animated-bar"}`}
-                      style={{
-                        width: `${(ev.attendance / ev.cap) * 100}%`,
-                        background: ev.attendance / ev.cap > 0.85 ? "#d4a853" : "rgba(255,255,255,0.4)"
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Department Engagement */}
-          <div className={`fade-up stagger-2 ${visibleSections.data ? "visible" : ""}`} style={{ background: "#1a1a1a", border: "1px solid #222", padding: "36px 32px" }}>
-            <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.15em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", marginBottom: 24 }}>
-              Department Engagement Score
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              {mockData.engagement.map((dept, i) => (
-                <div key={dept.dept} style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: "rgba(255,255,255,0.5)", width: 80, flexShrink: 0 }}>
-                    {dept.dept}
-                  </span>
-                  <div style={{ flex: 1, height: 32, background: "rgba(255,255,255,0.04)", position: "relative", overflow: "hidden" }}>
-                    <div style={{
-                      width: `${dept.score}%`,
-                      height: "100%",
-                      background: `rgba(212,168,83,${0.3 + (dept.score / 100) * 0.7})`,
-                      transition: "width 1.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                      transitionDelay: `${i * 0.1}s`
-                    }} />
-                    <span style={{
-                      position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
-                      fontFamily: "'Space Mono', monospace", fontSize: 12, color: "#f5f4f0", fontWeight: 700
-                    }}>
-                      {dept.score}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Stats row */}
-          {[
-            { label: "Events Tracked", value: "18", sub: "Fall 2025" },
-            { label: "Avg. Attendance Rate", value: "83%", sub: "Above 80% target" },
-            { label: "Newsletter Opens", value: "74%", sub: "Industry avg: 22%" },
-            { label: "Opportunities Logged", value: "31", sub: "This semester" },
-          ].map((stat, i) => (
-            <div key={stat.label} className={`fade-up stagger-${i + 1} ${visibleSections.data ? "visible" : ""}`} style={{
-              background: "#1a1a1a", border: "1px solid #222",
-              padding: "32px 28px", display: "flex", flexDirection: "column", justifyContent: "space-between"
-            }}>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.15em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase" }}>
-                {stat.label}
-              </span>
-              <div>
-                <div className="hero-title" style={{ fontSize: 64, color: "#f5f4f0", lineHeight: 1 }}>{stat.value}</div>
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#d4a853", marginTop: 8 }}>{stat.sub}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* FOOTER */}
-      <footer style={{ background: "#0a0a0a", padding: "60px 40px", borderTop: "1px solid #1a1a1a" }}>
+      <footer style={{ background: "#0a0a0a", padding: "56px 40px", borderTop: "1px solid #1a1a1a" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div>
-            <div className="hero-title" style={{ fontSize: 48, color: "#f5f4f0", lineHeight: 1, marginBottom: 12 }}>MOTM</div>
-            <p className="serif" style={{ fontSize: 14, color: "rgba(245,244,240,0.4)", fontStyle: "italic" }}>
-              Models of the Mecca, Inc.
-            </p>
+            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 44, color: "#f5f4f0", lineHeight: 1, marginBottom: 8 }}>MOTM</div>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 14, color: "rgba(245,244,240,0.35)", fontStyle: "italic" }}>Models of the Mecca, Inc.</p>
           </div>
           <div style={{ textAlign: "right" }}>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
-              Secretary Operational System
-            </p>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "rgba(255,255,255,0.2)", marginTop: 4 }}>
-              FY 2025–2026
-            </p>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.25)", letterSpacing: "0.14em", textTransform: "uppercase" }}>Secretary Operational Vision</p>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.15)", marginTop: 4 }}>FY 2025–2026</p>
           </div>
         </div>
-        <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between" }}>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.2)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
-            Structure. Communication. Legacy.
-          </span>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(255,255,255,0.2)" }}>
-            © Howard University
-          </span>
+        <div style={{ marginTop: 44, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "space-between" }}>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, color: "rgba(255,255,255,0.18)", letterSpacing: "0.14em", textTransform: "uppercase" }}>Structure. Community. Legacy.</span>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, color: "rgba(255,255,255,0.18)" }}>Howard University</span>
         </div>
       </footer>
     </div>
